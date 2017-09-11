@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>摇一摇</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+
+        .content,.box{
+            font-size: 4em;
+            color: aquamarine;
+            text-align: center;
+        }
+
+        .ball{
+            background-color: #121212;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<script>
+    window.onload=function(){
+        var box=document.getElementsByClassName("box")[0];
+        var ball=document.getElementsByClassName("ball")[0];
+
+//        if(window.DeviceOrientationEvent) {
+//            var lastAcc={};    // 用来存储上一次的deviceorientation事件
+//            window.addEventListener('deviceorientation', function (event) {
+//                console.log(event);
+//                var delA = Math.abs(event.alpha - lastAcc.alpha);    // alpha轴偏转角
+//                var delB = Math.abs(event.beta - lastAcc.beta);    // beta轴偏转角
+//                var delG = Math.abs(event.gamma - lastAcc.gamma);    // gamma轴偏转角
+//                    // 用户设备摇动了，触发响应操作
+//                    // 此处的判断依据是任意两个轴篇转角度大于15度
+//                if((delA > 1 )){
+//                    box.innerHTML="delA---"+delA+"--delB--"+delB+"--delG--"+delG;
+//                }
+//                   lastAcc = event;    // 存储上一次的event
+//            });
+//        }
+
+
+
+
+        //摇一摇(使用DeviceOrientation事件, 本质是计算偏转角)
+//        if(window.DeviceOrientationEvent) {
+//            var lastAcc=0;    // 用来存储上一次的deviceorientation事件
+//            window.addEventListener('deviceorientation', function (event) {
+//                console.log(event);
+//                var delA = Math.abs(event.alpha - lastAcc.alpha);    // alpha轴偏转角
+//                var delB = Math.abs(event.beta - lastAcc.beta);    // beta轴偏转角
+//                var delG = Math.abs(event.gamma - lastAcc.gamma);    // gamma轴偏转角
+//                if ((delA > 15 && delB > 15) || (delA > 15 && delG > 15) || (delB > 15 || delG > 15)) {
+//                    // 用户设备摇动了，触发响应操作
+//                    // 此处的判断依据是任意两个轴篇转角度大于15度
+//                    box.innerHTML="delA---"+delA+"---delB---"+delB+"--delG--"+delG;
+//                    alert('摇了');
+//                }
+//                lastAcc = event;    // 存储上一次的event
+//            });
+//        }
+//
+
+//
+//        //摇一摇(使用DeviceMotion事件, 推荐,因为可以计算加速度)
+        if(window.DeviceMotionEvent) {
+            var speed = 5;    // 用来判定的加速度阈值，太大了则很难触发
+            var x, y, z, lastX, lastY, lastZ;
+            x = y = z = lastX = lastY = lastZ = 0;
+
+            window.addEventListener('devicemotion', function(event){
+                var acceleration = event.accelerationIncludingGravity;
+                x = acceleration.x;
+                y = acceleration.y;
+                z=  acceleration.z;
+
+//                if(Math.abs(x-lastX) > speed || Math.abs(y-lastY) > speed ) {
+//                    // 用户设备摇动了，触发响应操作
+//                    // 此处的判断依据是用户设备的加速度大于我们设置的阈值
+//                    box.innerHTML="x--"+x+"--y--"+y+"--z--"+z;
+//                }
+
+                if(z!=lastZ){
+                    box.innerHTML="x--"+x+"--y--"+y+"--z--"+z;
+                }
+
+                lastX = x;
+                lastY = y;
+                lastZ = z;
+            }, false);
+        }
+
+    }
+</script>
+<body>
+<div class="content">请摇动你的手机</div>
+<div class="box" style="background-color: #00ACED;font-weight: bold"></div>
+
+<div class="ball"></div>
+</body>
+</html>
