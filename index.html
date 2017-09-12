@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="framwork/jquery.js"></script>
+    <script src="framwork/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+ <div ng-controller="myController">
+     <h1>{{my}}</h1>
+     <input type="text" value="{{my}}">
+     <button type="button">{{my}}</button>
+     <!--<img ng-src="{{img}}" class="img">-->
+     <video width="300" height="300" class="video" autoplay></video>
+     <!--<a href="{{img}}">我来了</a>-->
+
+     <!--是 <input type="checkbox"  class="checkb" name="c"  ng-checked="ch" ng-model="check" ng-click="console()" ng-true-value="0" ng-false-value="1">-->
+     <!--否 <input type="checkbox" class="checkb" name="c">-->
+
+     <textarea >{{c | json}}</textarea>
+
+     <input type="checkbox" class="check" checked ng-click="click()" >输入
+ </div>
+
+</body>
+<script>
+    angular.module("myApp",[])
+            .controller("myController",function($scope){
+                $scope.my="爱老虎油";
+                $scope.url="http://o8r4d65i4.bkt.clouddn.com/Fh-0Qt48xRe3r0OYTDUCw2_BuNsm";
+                $scope.img="http://testres.hicetech.com/Fuv6bcdqZ0Mt_j3Q5TmO9o7s0nfx";
+                $(".video").attr("src",$scope.url);
+                $scope.c=["w","地方"];
+//                $scope.console=function(){
+//                    $scope.ch=0;
+//                    console.log($scope.check);
+////                    console.log($(".checkb").val())
+//
+//                }
+
+                $scope.click=function(){
+                  console.log($(".check").attr("checked"));
+
+
+                }
+
+
+            });
+
+</script>
+</html>
